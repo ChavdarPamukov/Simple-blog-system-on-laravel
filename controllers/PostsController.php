@@ -14,27 +14,25 @@ class PostsController extends BaseController
 
     public function create()
     {
-        if ($this->isPost){
+        if($this->isPost) {
             $title = $_POST['post_title'];
-            if (strlen($title) < 1){
-                $this->setValidationError("post_title", "Title too short.");
+            if(strlen($title) < 1){
+                $this->setValidationError("post_title", "Title cannot be empty!");
             }
             $content = $_POST['post_content'];
-            if (strlen($content) < 1){
-                $this->setValidationError("post_content", "Post content is empty.");
+            if(strlen($content) < 1){
+                $this->setValidationError("post_content", "Content cannot be empty!");
             }
-            $tags = $_POST['post_tags'];
-            if (strlen($tags) < 1){
-                $this->setValidationError("post_tags", "Tags too short.");
+            $tag = $_POST['post_tag'];
+            if (strlen($tag) < 1){
+                $this->setValidationError("post_tag", "Tag too short.");
             }
-
-            if ($this->formValid()){
+            if($this->formValid()){
                 $userId = $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $tags, $userId)){
+                if($this->model->create($title, $content, $tag, $userId)){
                     $this->addInfoMessage("Post created.");
                     $this->redirect("posts");
-                }
-                else{
+                } else {
                     $this->addErrorMessage("Error: cannot create post.");
                 }
             }
@@ -81,9 +79,9 @@ class PostsController extends BaseController
                 $this->setValidationError("post_date", "Invalid date!");
             }
 
-            $tags = $_POST['post_tags'];
-            if (strlen($tags) < 1){
-                $this->setValidationError("post_tags", "Tags content is empty.");
+            $tag = $_POST['post_tag'];
+            if (strlen($tag) < 1){
+                $this->setValidationError("post_tag", "Tags content is empty.");
             }
 
             $user_id = $_POST['user_id'];
@@ -92,7 +90,7 @@ class PostsController extends BaseController
             }
 
             if ($this->formValid()){
-                if ($this->model->edit($id, $title, $content, $date, $tags, $user_id)){
+                if ($this->model->edit($id, $title, $content, $date, $tag, $user_id)){
                     $this->addInfoMessage("Post edited.");
                     $this->redirect("posts");
                 }

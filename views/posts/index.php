@@ -8,7 +8,7 @@
         <th>Title</th>
         <th>Content</th>
         <th>Date</th>
-        <th>Tags</th>
+        <th>Tag</th>
         <th>Author ID</th>
         <th>Action</th>
     </tr>
@@ -18,7 +18,7 @@
             <td><?= htmlentities($post['title']) ?></td>
             <td><?= cutLongText($post['content']) ?></td>
             <td><?= htmlentities($post['date']) ?></td>
-            <td><?= htmlentities($post['tags']) ?></td>
+            <td><?= htmlentities($post['tag']) ?></td>
             <td><?= $post['user_id'] ?></td>
             <td>
                 <a href="<?=APP_ROOT?>/posts/edit/<?= $post['id'] ?>"><i>Edit</i></a>

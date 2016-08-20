@@ -22,7 +22,7 @@
             </div>
             <div>
                 <i>Tags</i>
-                <?= htmlentities($post['tags'])?>
+                <?= htmlentities($post['tag'])?>
             </div>
             <p class="content"><?=$post['content']?></p>
         <?php endforeach ?>

@@ -12,7 +12,7 @@
         </div>
         <div>
             <i>Tags</i>
-            <?= htmlentities($this->post['tags'])?>
+            <?= htmlentities($this->post['tag'])?>
         </div>
         <p class="content"><?=$this->post['content']?></p>
     </article>
