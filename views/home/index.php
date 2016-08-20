@@ -20,6 +20,10 @@
                 <i>by</i>
                 <?= htmlentities($post['full_name'])?>
             </div>
+            <div>
+                <i>Tags</i>
+                <?= htmlentities($post['tags'])?>
+            </div>
             <p class="content"><?=$post['content']?></p>
         <?php endforeach ?>
     </article>

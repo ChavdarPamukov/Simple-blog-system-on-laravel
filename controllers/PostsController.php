@@ -12,7 +12,7 @@ class PostsController extends BaseController
         $this->posts = $this->model->getAll();
     }
 
-    function create()
+    public function create()
     {
         if ($this->isPost){
             $title = $_POST['post_title'];
@@ -23,10 +23,14 @@ class PostsController extends BaseController
             if (strlen($content) < 1){
                 $this->setValidationError("post_content", "Post content is empty.");
             }
+            $tags = $_POST['post_tags'];
+            if (strlen($tags) < 1){
+                $this->setValidationError("post_tags", "Tags too short.");
+            }
 
             if ($this->formValid()){
                 $userId = $_SESSION['user_id'];
-                if ($this->model->create($title, $content, $userId)){
+                if ($this->model->create($title, $content, $tags, $userId)){
                     $this->addInfoMessage("Post created.");
                     $this->redirect("posts");
                 }
@@ -72,19 +76,23 @@ class PostsController extends BaseController
             }
 
             $date = $_POST['post_date'];
-            $dateRegex = '/^d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
-            if (!preg_match($dateRegex, $date)){
+            $dateRegex = '/^\d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
+            if (!preg_match($dateRegex, $date)) {
                 $this->setValidationError("post_date", "Invalid date!");
             }
 
-            $user_id = $_POST['post_user_id'];
+            $tags = $_POST['post_tags'];
+            if (strlen($tags) < 1){
+                $this->setValidationError("post_tags", "Tags content is empty.");
+            }
 
+            $user_id = $_POST['user_id'];
             if ($user_id <= 0 || $user_id > 1000000){
                 $this->setValidationError('user_id', "Invalid author ID.");
             }
 
             if ($this->formValid()){
-                if ($this->model->edit($id, $title, $content, $date, $user_id)){
+                if ($this->model->edit($id, $title, $content, $date, $tags, $user_id)){
                     $this->addInfoMessage("Post edited.");
                     $this->redirect("posts");
                 }
