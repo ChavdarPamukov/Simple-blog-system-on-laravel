@@ -11,7 +11,7 @@
             <?= htmlentities($this->post['full_name'])?>
         </div>
         <div>
-            <i>Tags</i>
+            <i>Tag</i>
             <?= htmlentities($this->post['tag'])?>
         </div>
         <p class="content"><?=$this->post['content']?></p>

@@ -21,10 +21,16 @@
                 <?= htmlentities($post['full_name'])?>
             </div>
             <div>
-                <i>Tags</i>
+                <i>Tag</i>
                 <?= htmlentities($post['tag'])?>
             </div>
-            <p class="content"><?=$post['content']?></p>
+            <div>
+            <p class="content"><?= $post['content']?></p>
+            </div>
+            <div>
+                <a href="<?=APP_ROOT?>/home/view/<?=$post['id']?>">
+                    <strong><i>View post with comments</i></strong></a>
+            </div>
         <?php endforeach ?>
     </article>
 </main>

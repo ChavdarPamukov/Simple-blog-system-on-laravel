@@ -7,32 +7,34 @@ class PostsController extends BaseController
         $this->authorize();
     }
 
-    function index()
+    function index() 
     {
         $this->posts = $this->model->getAll();
     }
 
     public function create()
     {
-        if($this->isPost) {
+        if ($this->isPost){
             $title = $_POST['post_title'];
-            if(strlen($title) < 1){
-                $this->setValidationError("post_title", "Title cannot be empty!");
+            if (strlen($title) < 1){
+                $this->setValidationError("post_title", "Title too short.");
             }
             $content = $_POST['post_content'];
-            if(strlen($content) < 1){
-                $this->setValidationError("post_content", "Content cannot be empty!");
+            if (strlen($content) < 1){
+                $this->setValidationError("post_content", "Post content is empty.");
             }
             $tag = $_POST['post_tag'];
             if (strlen($tag) < 1){
                 $this->setValidationError("post_tag", "Tag too short.");
             }
-            if($this->formValid()){
+            
+            if ($this->formValid()){
                 $userId = $_SESSION['user_id'];
-                if($this->model->create($title, $content, $tag, $userId)){
+                if ($this->model->create($title, $content, $tag, $userId)){
                     $this->addInfoMessage("Post created.");
                     $this->redirect("posts");
-                } else {
+                }
+                else{
                     $this->addErrorMessage("Error: cannot create post.");
                 }
             }
@@ -48,13 +50,13 @@ class PostsController extends BaseController
             else{
                 $this->addErrorMessage("Error: cannot delete post.");
             }
-            $this->redirect("posts");
+            $this->redirect('posts');
         }
         else{
             $post = $this->model->getById($id);
             if (!$post){
                 $this->addErrorMessage("Post does not exist.");
-                $this->redirect("posts");
+                $this->redirect('posts');
             }
             $this->post = $post;
         }
@@ -67,24 +69,21 @@ class PostsController extends BaseController
             if (strlen($title) < 1){
                 $this->setValidationError("post_title", "Title too short.");
             }
-
             $content = $_POST['post_content'];
             if (strlen($content) < 1){
                 $this->setValidationError("post_content", "Post content is empty.");
             }
-
             $date = $_POST['post_date'];
             $dateRegex = '/^\d{2,4}-\d{1,2}-\d{1,2}( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/';
             if (!preg_match($dateRegex, $date)) {
                 $this->setValidationError("post_date", "Invalid date!");
             }
-
             $tag = $_POST['post_tag'];
             if (strlen($tag) < 1){
                 $this->setValidationError("post_tag", "Tags content is empty.");
             }
-
             $user_id = $_POST['user_id'];
+
             if ($user_id <= 0 || $user_id > 1000000){
                 $this->setValidationError('user_id', "Invalid author ID.");
             }
@@ -104,7 +103,7 @@ class PostsController extends BaseController
         $post = $this->model->getById($id);
         if (!$post){
             $this->addErrorMessage("Post does not exist.");
-            $this->redirect("posts");
+            $this->redirect('posts');
         }
         $this->post = $post;
     }

@@ -21,6 +21,7 @@
         <a href="<?=APP_ROOT?>/users/login">Login</a>
         <a href="<?=APP_ROOT?>/users/register">Register</a>
     <?php endif; ?>
+
     <?php if ($this->isLoggedIn) : ?>
         <div id="logged-in-info">
             <span>Hello, <b><?=htmlspecialchars($_SESSION['username'])?></b></span>

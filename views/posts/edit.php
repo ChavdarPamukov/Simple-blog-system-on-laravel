@@ -9,7 +9,7 @@
     <textarea name="post_content" cols="30" rows="10"><?=htmlspecialchars($this->post['content'])?></textarea>
     <div>Date (yyyy-mm-dd hh:mm:ss):</div>
     <input type="text" name="post_date" value="<?=htmlspecialchars($this->post['date'])?>"/>
-    <div>Tags:</div>
+    <div>Tag:</div>
     <input type="text" name="post_tag" value="<?=htmlspecialchars($this->post['tag'])?>">
     <div>Author username:</div>
     <input type="text" name="user_id" value="<?=htmlspecialchars($this->post['user_id'])?>"/>

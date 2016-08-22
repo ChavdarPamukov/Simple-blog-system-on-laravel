@@ -2,41 +2,37 @@
 
 class UsersController extends BaseController
 {
-    public function index()
-    {
-        $this->authorize();
-        $this->users = $this->model->getAll();
-    }
-
     public function register()
     {
-        if ($this->isPost){
+		if ($this->isPost){
             $username = $_POST['username'];
-            if (strlen($username) < 2 || strlen($username) > 50){
-                $this->setValidationError("username", "Invalid username");
-            }
             $password = $_POST['password'];
-            if (strlen($password) < 5 || strlen($password) > 50){
-                $this->setValidationError("password", "Invalid password");
-            }
-            $passwordRepeat = $_POST['password_repeat'];
-            if ($password != $passwordRepeat){
-                $this->setValidationError("password_repeat", "The two passwords did not match!");
-            }
+            $confirm_password = $_POST['confirm_password'];
             $full_name = $_POST['full_name'];
-            if (strlen($full_name) > 200){
-                $this->setValidationError("password", "Invalid full name");
+
+            if (strlen($username) <= 1){
+                $this->setValidationError("username", "Username too short.");
+                return;
             }
-            if ($this->formValid()){
-                $userId = $this->model->register($username, $password, $full_name);
-                if ($userId){
-                    $_SESSION['username'] = $username;
-                    $_SESSION['userId'] = $userId;
-                    $this->addInfoMessage("Registration successful.");
-                    $this->redirect('');
-                } else{
-                    $this->addErrorMessage("Error: user registration faild!");
-                }
+            if (strlen($password) <= 1){
+                $this->setValidationError("password", "Password too short.");
+                return;
+            }
+            if ($password != $confirm_password){
+                $this->setValidationError("confirm_password", "Passwords do not match.");
+                return;
+            }
+
+            $userId = $this->model->register(
+                $username, $password, $full_name);
+            if ($userId){
+                $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $userId;
+                $this->addInfoMessage("Registration successful.");
+                $this->redirect('');
+            }
+            else{
+                $this->addErrorMessage("Error: Registration failed.");
             }
         }
     }
@@ -46,22 +42,30 @@ class UsersController extends BaseController
         if ($this->isPost){
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $loggedUserId = $this->model->login($username, $password);
-            if ($loggedUserId){
+
+            $userId = $this->model->login(
+                $username, $password);
+            if ($userId){
                 $_SESSION['username'] = $username;
-                $_SESSION['userId'] = $loggedUserId;
+                $_SESSION['user_id'] = $userId;
                 $this->addInfoMessage("Login successful.");
                 $this->redirect('');
-            }else{
-                $this->addErrorMessage("Error: login faild!");
+            }
+            else{
+                $this->addErrorMessage("Error: Login failed.");
             }
         }
     }
 
     public function logout()
     {
-        session_destroy();
-        $this->addInfoMessage("Login successful!");
+		session_destroy();
         $this->redirect('');
+    }
+
+    public function index()
+    {
+        $this->authorize();
+        $this->users = $this->model->getAll();
     }
 }
