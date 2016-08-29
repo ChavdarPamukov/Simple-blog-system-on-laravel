@@ -19,7 +19,7 @@
             <div class="post">
                 <h3>{{ $post->title }}</h3>
                 <p>{{ substr($post->body, 0, 300) }}{{ strlen($post->body) > 300 ? "..." : "" }}</p>
-                <a class="btn btn-primary" href="#">Read More</a>
+                <a class="btn btn-primary" href="{{ route('blog.single', $post->slug) }}">Read More</a>
             </div>
 
             <hr>

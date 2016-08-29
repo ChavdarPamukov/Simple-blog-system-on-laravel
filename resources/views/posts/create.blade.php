@@ -17,7 +17,10 @@
                 {{ Form::label('title', 'Title:') }}
                 {{ Form::text('title', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '255')) }}
 
-                {{ Form::label('body', 'Post Content:') }}
+                {{ Form::label('slug', 'Slug:', array('class' =>'form-spacing-top')) }}
+                {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5', 'maxlength' => '255')) }}
+
+                {{ Form::label('body', 'Post Content:', array('class' =>'form-spacing-top')) }}
                 {{ Form::textarea('body', null, array('class' => 'form-control', 'required' => '')) }}
 
                 {{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lb btn-block btn-h1-spacing')) }}

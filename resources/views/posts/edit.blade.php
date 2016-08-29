@@ -15,6 +15,9 @@
             {{ Form::label('title', 'Title:') }}
             {{ Form::text('title', null, ['class' => 'form-control']) }}
 
+            {{ Form::label('slug', 'Slug:', ['class' => 'form-spacing-top']) }}
+            {{ Form::text('slug', null, ['class' => 'form-control']) }}
+
             {{ Form::label('body', 'Post Content:', ['class' => 'form-spacing-top']) }}
             {{ Form::textarea('body', null, ['class' => 'form-control']) }}
         </article>
@@ -22,13 +25,13 @@
         <aside class="col-md-4">
             <div class="well">
                 <dl class="dl-horizontal">
-                    <dt><i>Created At:</i></dt>
-                    <dd>{{ date('j M Y, H:i', strtotime($post->created_at)) }}</dd>
+                    <label><i>Created At:</i></label>
+                    <p>{{ date('j M Y, H:i', strtotime($post->created_at)) }}</p>
                 </dl>
 
                 <dl class="dl-horizontal">
-                    <dt><i>Last Update:</i></dt>
-                    <dd>{{ date('j M Y, H:i', strtotime($post->updated_at)) }}</dd>
+                    <label><i>Last Update:</i></label>
+                    <p>{{ date('j M Y, H:i', strtotime($post->updated_at)) }}</p>
                 </dl>
 
                 <hr>
