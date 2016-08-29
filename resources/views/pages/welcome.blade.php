@@ -14,24 +14,16 @@
 </div>
 <div class="row">
     <article class="col-md-8">
-        <div class="post">
-            <h3>Post title</h3>
-            <p>Nulla urna urna; vehicula non laoreet vitae, faucibus id est. Nullam elementum justo in magna malesuada,
-                a dictum nulla consectetur. Fusce quis quam in lorem ultrices efficitur. Maecenas eu massa....</p>
-            <a class="btn btn-primary" href="#">Read More</a>
-        </div>
-        <div class="post">
-            <h3>Post title</h3>
-            <p>Nulla urna urna; vehicula non laoreet vitae, faucibus id est. Nullam elementum justo in magna malesuada,
-                a dictum nulla consectetur. Fusce quis quam in lorem ultrices efficitur. Maecenas eu massa....</p>
-            <a class="btn btn-primary" href="#">Read More</a>
-        </div>
-        <div class="post">
-            <h3>Post title</h3>
-            <p>Nulla urna urna; vehicula non laoreet vitae, faucibus id est. Nullam elementum justo in magna malesuada,
-                a dictum nulla consectetur. Fusce quis quam in lorem ultrices efficitur. Maecenas eu massa....</p>
-            <a class="btn btn-primary" href="#">Read More</a>
-        </div>
+        @foreach($posts as $post)
+
+            <div class="post">
+                <h3>{{ $post->title }}</h3>
+                <p>{{ substr($post->body, 0, 300) }}{{ strlen($post->body) > 300 ? "..." : "" }}</p>
+                <a class="btn btn-primary" href="#">Read More</a>
+            </div>
+
+            <hr>
+        @endforeach
     </article>
 
     <aside class="col-md-3 col-md-offset-1">
