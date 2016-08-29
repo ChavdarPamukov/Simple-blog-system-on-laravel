@@ -1,12 +1,22 @@
 @extends('main')
 
-@section('title', '| View Post')
+@section('title', '| Edit Post')
+
+@section('stylesheets')
+
+    {!! Html::style('ccs/parsley.css') !!}
+
+@endsection
 
 @section('content')
     <main class="row">
+        {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
         <article class="col-md-8">
-            <h1>{{ $post->title }}</h1>
-            <p class="lead">{{ $post->body }}</p>
+            {{ Form::label('title', 'Title:') }}
+            {{ Form::text('title', null, ['class' => 'form-control']) }}
+
+            {{ Form::label('body', 'Post Content:', ['class' => 'form-spacing-top']) }}
+            {{ Form::textarea('body', null, ['class' => 'form-control']) }}
         </article>
 
         <aside class="col-md-4">
@@ -25,16 +35,15 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-                        {!! Html::linkRoute('posts.edit', 'Edit', array($post->id), array('class' => 'btn btn-primary btn-block')) !!}
+                        {{ Form::submit('Save Changes', ['class' => 'btn btn-success btn-block']) }}
                     </div>
 
                     <div class="col-sm-6">
-                        {!! Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'DELETE']) !!}
-                        {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-block']) }}
-                        {!! Form::close() !!}
+                        {!! Html::linkRoute('posts.show', 'Cancel', array($post->id), array('class' => 'btn btn-danger btn-block')) !!}
                     </div>
                 </div>
             </div>
         </aside>
+        {!! Form::close() !!}
     </main>
 @endsection
