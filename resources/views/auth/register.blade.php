@@ -8,9 +8,9 @@
         <div class="col-md-6 col-md-offset-3">
             <h1>Register</h1>
             <hr>
-            {!! Form::open(['route' => 'posts.store', 'data-parsley-validate' => '']) !!}
+            {!! Form::open() !!}
                 {{ Form::label('name', 'Name:', ['class' => 'form-spacing-top']) }}
-                {{ Form::email('name', null, ['class' => 'form-control']) }}
+                {{ Form::text('name', null, ['class' => 'form-control']) }}
 
                 {{ Form::label('email', 'Email:', ['class' => 'form-spacing-top']) }}
                 {{ Form::email('email', null, ['class' => 'form-control']) }}
