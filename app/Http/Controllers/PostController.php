@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
@@ -35,7 +36,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create')->with('categories', $categories);
+        $tags = Tag::all();
+        return view('posts.create')->with('categories', $categories)->with('tags', $tags);
     }
 
     /**
@@ -61,6 +63,8 @@ class PostController extends Controller
         $post->body = $request->body;
 
         $post->save();
+
+        $post->tags()->sync($request->tags, false);
 
         Session::flash('success', 'The post was successfuly save!');
 
@@ -95,7 +99,13 @@ class PostController extends Controller
             $cat[$category->id] = $category->name;
         }
 
-        return view('posts.edit')->with('post', $post)->with('cat', $cat);
+        $tags = Tag::all();
+        $tagS = array();
+        foreach ($tags as $tag){
+            $tagS [$tag->id] = $tag->name;
+        }
+
+        return view('posts.edit')->with('post', $post)->with('cat', $cat)->with('tagS', $tagS);
     }
 
     /**
@@ -131,6 +141,12 @@ class PostController extends Controller
 
         $post->save();
 
+         if (isset($request->tags)) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->sync(array());
+        }
+
         Session::flash('success', 'The post was successfuly save!');
 
         return redirect()->route('posts.show', $post->id);
@@ -145,6 +161,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
+        $post->tags()->detach();
 
         $post->delete();
 

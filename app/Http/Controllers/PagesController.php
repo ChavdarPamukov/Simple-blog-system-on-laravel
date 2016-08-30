@@ -3,24 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 
 class PagesController extends Controller
 {
     public function getIndex(){
-        $posts = Post::orderBy('created_at', 'desc')->limit(5)->get();
+        $posts = Post::orderBy('created_at', 'desc')->limit(3)->get();
 
-        return view('pages/welcome')->with('posts', $posts);
-    }
+        $tags = Tag::all();
 
-    public function getAbout(){
-        $firstName = 'Blog';
-        $lastName = 'System';
-        $fullName = $firstName . " " . $lastName;
-        return view('pages/about')->with("fullName", $fullName);
-    }
-
-    public function getContact(){
-        return view('pages/contact');
+        return view('pages/welcome')->with('posts', $posts)->with('tags', $tags);
     }
 }
-?>
