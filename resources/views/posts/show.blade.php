@@ -17,6 +17,11 @@
                 </dl>
 
                 <dl class="dl-horizontal">
+                    <label><i>Category:</i></label>
+                    <p>{{ $post->category->name }}</p>
+                </dl>
+
+                <dl class="dl-horizontal">
                     <label><i>Created At:</i></label>
                     <p>{{ date('j M Y, H:i', strtotime($post->created_at)) }}</p>
                 </dl>

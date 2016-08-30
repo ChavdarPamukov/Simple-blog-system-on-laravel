@@ -20,6 +20,13 @@
                 {{ Form::label('slug', 'Slug:', array('class' =>'form-spacing-top')) }}
                 {{ Form::text('slug', null, array('class' => 'form-control', 'required' => '', 'minlength' => '5', 'maxlength' => '255')) }}
 
+                {{ Form::label('category', 'Category:', array('class' =>'form-spacing-top')) }}
+                <select class = 'form-control' name="category_id" id="">
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+
                 {{ Form::label('body', 'Post Content:', array('class' =>'form-spacing-top')) }}
                 {{ Form::textarea('body', null, array('class' => 'form-control', 'required' => '')) }}
 
